@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NotificationAndGPS</string>
+    <string name="get_location"> Open Map</string>
+    <string name="get_notification"> Notification</string>
+    <string name="longitude">Longitude: %lon</string>
+    <string name="latitude">Latitude: %lat</string>
+    <string name="permission_message">Program needs an access to GPS sensor for displaying your coordinates, enable geolocation permission in system settings.</string>
+    <string name="permission_message_title">Permission is disabled</string>
+    <string name="channel_name">Gps Notification Channel</string>
+</resources>

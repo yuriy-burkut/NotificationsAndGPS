@@ -70,14 +70,13 @@ class MainActivity : AppCompatActivity(), MainFragment.OnButtonsClickListener {
         locationManger = getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
 
-
-    override fun onLocationButtonClick() {
-
+    override fun onResume() {
+        super.onResume()
         if (checkPermission()) {
             locationManger.apply {
                 requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
-                    1000,
+                    1000 * 10,
                     10f,
                     locationListener
                 )
@@ -88,28 +87,17 @@ class MainActivity : AppCompatActivity(), MainFragment.OnButtonsClickListener {
                     locationListener
                 )
             }
-            openMap()
+
         }
     }
 
+
+    override fun onLocationButtonClick() {
+        openMap()
+    }
+
     override fun onNotificationButtonClick() {
-        if (checkPermission()) {
-            locationManger.apply {
-                requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    1000 * 10,
-                    10f,
-                    locationListener
-                )
-                requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER,
-                    1000 * 10,
-                    10f,
-                    locationListener
-                )
-            }
-            showNotification()
-        }
+        showNotification()
     }
 
     private fun checkPermission(): Boolean {
@@ -197,7 +185,10 @@ class MainActivity : AppCompatActivity(), MainFragment.OnButtonsClickListener {
             return
         }
 
-        if (location.provider.equals(LocationManager.GPS_PROVIDER)) {
+        if (location.provider.equals(LocationManager.GPS_PROVIDER) || location.provider.equals(
+                LocationManager.NETWORK_PROVIDER
+            )
+        ) {
             latitude = location.latitude
             longitude = location.longitude
         }
